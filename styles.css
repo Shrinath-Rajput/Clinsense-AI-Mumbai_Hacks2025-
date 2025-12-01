@@ -1,0 +1,88 @@
+/* ============================
+   FULL WHITE CLEAN TEMPLATE UI
+============================ */
+
+/* MAIN BACKGROUND */
+[data-testid="stAppViewContainer"] {
+    background-color: #f4f7fc !important;
+}
+
+/* SIDEBAR */
+[data-testid="stSidebar"] {
+    background-color: #e8eef6 !important;
+}
+[data-testid="stSidebar"] * {
+    color: #000 !important;
+    font-weight: 600;
+}
+
+/* GLOBAL TEXT */
+html, body, h1, h2, h3, p, label {
+    color: #000 !important;
+}
+
+/* INPUT BOX */
+.stTextInput input {
+    background: #fff !important;
+    border: 1px solid #888 !important;
+    color: #f9f7f7 !important;
+    border-radius: 10px !important;
+    padding: 10px !important;
+}
+
+/* ---------------- WHITE DROPDOWN ---------------- */
+
+/* CLOSED DROPDOWN */
+div[data-baseweb="select"] {
+    background-color: #ffffff !important;
+    color: #040404 !important;
+    border-radius: 12px !important;
+    border: 1px solid #8c8c8c !important;
+}
+
+/* CLOSED DROPDOWN TEXT */
+div[data-baseweb="select"] * {
+    color: #000 !important;
+}
+
+/* OPEN LISTBOX */
+ul[role="listbox"] {
+    background:#fff !important;
+    border: 1px solid #aaa !important;
+    border-radius: 10px !important;
+}
+
+/* OPTIONS */
+div[role="option"] {
+    background:#fff !important;
+    color:#000 !important;
+    padding:10px !important;
+}
+
+/* HOVER OPTION */
+div[role="option"]:hover {
+    background:#e5e5e5 !important;
+    color:#fffcfc !important;
+}
+
+/* SELECTED OPTION */
+div[role="option"][aria-selected="true"] {
+    background:#d6e6ff !important;
+    color:#f5f2f2 !important;
+}
+
+/* BUTTONS */
+.stButton button {
+    background:#008f4e !important;
+    color:rgb(12, 12, 12) !important;
+    border-radius:8px !important;
+}
+.stButton button:hover {
+    background:#00753f !important;
+}
+
+/* TABLE */
+table, td, th, thead, tbody {
+    background:white !important;
+    color:#000 !important;
+}
