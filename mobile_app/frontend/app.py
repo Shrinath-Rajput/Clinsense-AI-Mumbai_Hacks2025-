@@ -4,14 +4,14 @@ import streamlit as st
 import os
 
 # Import templates
-from templates.home import show_home
-from templates.booking import show_booking
-from templates.dashboard import show_dashboard
-from templates.smart_doctor_match import show_smart_match
-from templates.chatbot import show_chatbot
-from templates.image_tools import show_image_tools
-from templates.voice_assistant import show_voice_assistant
-from templates.auth import show_auth_sidebar, is_logged_in
+from mobile_app.frontend.templates.home import show_home
+from mobile_app.frontend.templates.booking import show_booking
+from mobile_app.frontend.templates.dashboard import show_dashboard
+from mobile_app.frontend.templates.smart_doctor_match import show_smart_match
+from mobile_app.frontend.templates.chatbot import show_chatbot
+from mobile_app.frontend.templates.image_tools import show_image_tools
+from mobile_app.frontend.templates.voice_assistant import show_voice_assistant
+from mobile_app.frontend.templates.auth import show_auth_sidebar, is_logged_in
 
 
 # ----------------------- PAGE CONFIG -----------------------

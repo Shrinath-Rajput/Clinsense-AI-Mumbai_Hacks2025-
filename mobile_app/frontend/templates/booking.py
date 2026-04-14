@@ -807,7 +807,7 @@ def check_slot_for_doctor(doc: dict, time_str: str) -> bool:
 
 # --------------------- MAIN UI --------------------- #
 def show_booking():
-    from templates.auth import is_logged_in
+    from mobile_app.frontend.templates.auth import is_logged_in
 
     init_booking_table()
     st.subheader("📅 Patient Booking")
