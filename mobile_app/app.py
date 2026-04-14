@@ -3,16 +3,23 @@ import os
 
 # ---------------- SAFE IMPORTS ----------------
 try:
-    from mobile_app.frontend.templates.home import show_home
-    from mobile_app.frontend.templates.booking import show_booking
-    from mobile_app.frontend.templates.dashboard import show_dashboard
-    from mobile_app.frontend.templates.smart_doctor_match import show_smart_match
-    from mobile_app.frontend.templates.chatbot import show_chatbot
-    from mobile_app.frontend.templates.image_tools import show_image_tools
-    from mobile_app.frontend.templates.voice_assistant import show_voice_assistant
-    from mobile_app.frontend.templates.auth import show_auth_sidebar, is_logged_in
+    from frontend.templates.home import show_home
+    from frontend.templates.booking import show_booking
+    from frontend.templates.dashboard import show_dashboard
+    from frontend.templates.smart_doctor_match import show_smart_match
+    from frontend.templates.chatbot import show_chatbot
+    from frontend.templates.image_tools import show_image_tools
+
+    # voice assistant optional (openai issue avoid)
+    try:
+        from frontend.templates.voice_assistant import show_voice_assistant
+    except:
+        show_voice_assistant = None
+
+    from frontend.templates.auth import show_auth_sidebar, is_logged_in
+
 except Exception as e:
-    st.error(f"Import Error: {e}")
+    st.error(f"❌ Import Error: {e}")
     st.stop()
 
 
@@ -55,9 +62,7 @@ if "theme" not in st.session_state:
 
 
 def apply_theme():
-    theme = st.session_state["theme"]
-
-    if theme == "Dark":
+    if st.session_state["theme"] == "Dark":
         st.markdown("""
         <style>
         body {background-color:#0a0a0a;color:white;}
@@ -76,7 +81,7 @@ if os.path.exists(css_path):
 
 
 # ---------------- HEADER ----------------
-col1, col2, col3 = st.columns([1,2,1])
+col1, col2, col3 = st.columns([1, 2, 1])
 
 with col2:
     logo_path = os.path.join("mobile_app", "logo.png")
@@ -118,13 +123,13 @@ try:
 
     elif page == "Patient Booking":
         if not is_logged_in():
-            st.warning("Login required")
+            st.warning("🔐 Login required")
         else:
             show_booking()
 
     elif page == "Doctor Dashboard":
         if not st.session_state["is_admin"]:
-            st.error("Admin Login Required")
+            st.error("🚫 Admin Login Required")
         else:
             show_dashboard()
 
@@ -135,7 +140,10 @@ try:
         show_image_tools()
 
     elif page == "Voice Assistant":
-        show_voice_assistant()
+        if show_voice_assistant:
+            show_voice_assistant()
+        else:
+            st.warning("⚠ Voice Assistant not available")
 
 except Exception as e:
-    st.error(f"Runtime Error: {e}")
+    st.error(f"❌ Runtime Error: {e}")
