@@ -5,7 +5,7 @@ import sqlite3
 import os
 from datetime import datetime, timedelta
 
-from templates.booking import DOCTORS   # <-- ALL DOCTORS IMPORTED
+from frontend.templates.booking import DOCTORS  # <-- ALL DOCTORS IMPORTED
 
 DB_DIR = os.path.join(os.path.dirname(__file__), "..", "data")
 DB_PATH = os.path.join(DB_DIR, "clinic.db")

@@ -4,14 +4,14 @@ import streamlit as st
 import os
 
 # Import templates
-from templates.home import show_home
-from templates.booking import show_booking
-from templates.dashboard import show_dashboard
-from templates.smart_doctor_match import show_smart_match
-from templates.chatbot import show_chatbot
-from templates.image_tools import show_image_tools
-from templates.voice_assistant import show_voice_assistant
-from templates.auth import show_auth_sidebar, is_logged_in
+from frontend.templates.home import show_home
+from frontend.templates.booking import show_booking
+from frontend.templates.dashboard import show_dashboard
+from frontend.templates.smart_doctor_match import show_smart_match
+from frontend.templates.chatbot import show_chatbot
+from frontend.templates.image_tools import show_image_tools
+from frontend.templates.voice_assistant import show_voice_assistant
+from frontend.templates.auth import show_auth_sidebar, is_logged_in
 
 
 # ----------------------- PAGE CONFIG -----------------------
@@ -144,7 +144,7 @@ if os.path.exists(css_path):
 col1, col2, col3 = st.columns([0.25, 0.50, 0.25])
 
 with col2:
-    st.image("assets/logo.png", width=230)
+    st.image("logo.png", width=230)
     st.markdown(
         "<h1 style='text-align:center;margin-bottom:0;'>ClinSense AI</h1>"
         "<p style='text-align:center;margin-top:2px;color:#777;'>Smart AI-powered Health & Appointment System.\n ClinSense Al is an advanced appointment-prioritization system that uses agentic Al to assess patient urgency, clinical factors, and real-time availability. It intelligently arranges appointments to reduce wait times, streamline hospital workflow, and ensure timely care for high-priority patients. The system offers a reliable, data-driven approach to improving overall healthcare efficiency.</p>",
