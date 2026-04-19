@@ -1,7 +1,7 @@
 import sys
 import os
 
-# ✅ IMPORTANT: mobile_app path add (fix import error)
+# ✅ mobile_app path fix
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(BASE_DIR, "mobile_app"))
 
@@ -16,7 +16,6 @@ try:
     from frontend.templates.chatbot import show_chatbot
     from frontend.templates.image_tools import show_image_tools
 
-    # optional (openai issue avoid)
     try:
         from frontend.templates.voice_assistant import show_voice_assistant
     except:
@@ -40,33 +39,48 @@ st.markdown("<h1 style='text-align:center;'>🩺 ClinSense AI</h1>", unsafe_allo
 st.markdown("---")
 
 
-# ---------------- CSS (optional) ----------------
+# ---------------- SESSION ----------------
+if "is_admin" not in st.session_state:
+    st.session_state["is_admin"] = False
+
+
+# ---------------- LOGIN FIXED ----------------
+def admin_login():
+    st.sidebar.markdown("### 👨‍⚕ Admin Login")
+
+    user = st.sidebar.text_input("Username", key="admin_user")
+    pwd = st.sidebar.text_input("Password", type="password", key="admin_pass")
+
+    if st.sidebar.button("Login", key="admin_login_btn"):
+        if user == "admin" and pwd == "clin@123":
+            st.session_state["is_admin"] = True
+            st.sidebar.success("✅ Login Successful")
+        else:
+            st.sidebar.error("❌ Invalid Credentials")
+
+    if st.sidebar.button("Logout", key="admin_logout_btn"):
+        st.session_state["is_admin"] = False
+        st.sidebar.info("Logged out")
+
+
+# ---------------- CSS ----------------
 css_path = os.path.join(BASE_DIR, "mobile_app", "assets", "styles.css")
 if os.path.exists(css_path):
     with open(css_path) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 
-# ---------------- ADMIN SESSION ----------------
-if "is_admin" not in st.session_state:
-    st.session_state["is_admin"] = False
+# ---------------- HEADER ----------------
+col1, col2, col3 = st.columns([1, 2, 1])
 
+with col2:
+    logo_path = os.path.join(BASE_DIR, "mobile_app", "logo.png")
+    if os.path.exists(logo_path):
+        st.image(logo_path, width=200)
 
-def admin_login():
-    st.sidebar.markdown("### 👨‍⚕ Admin Login")
+    st.markdown("<h2 style='text-align:center;'>ClinSense AI</h2>", unsafe_allow_html=True)
 
-    user = st.sidebar.text_input("Username")
-    pwd = st.sidebar.text_input("Password", type="password")
-
-    if st.sidebar.button("Login"):
-        if user == "admin" and pwd == "clin@123":
-            st.session_state["is_admin"] = True
-            st.sidebar.success("Login Success")
-        else:
-            st.sidebar.error("Invalid credentials")
-
-    if st.sidebar.button("Logout"):
-        st.session_state["is_admin"] = False
+st.markdown("---")
 
 
 # ---------------- SIDEBAR ----------------
