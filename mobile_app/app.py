@@ -1,11 +1,9 @@
+import streamlit as st
 import sys
 import os
 
-# ✅ mobile_app path add (VERY IMPORTANT)
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.join(BASE_DIR, "mobile_app"))
-
-import streamlit as st
+# ✅ FIX PATH (MOST IMPORTANT)
+sys.path.append(os.path.dirname(__file__))
 
 # ---------------- SAFE IMPORTS ----------------
 try:
@@ -16,7 +14,6 @@ try:
     from frontend.templates.chatbot import show_chatbot
     from frontend.templates.image_tools import show_image_tools
 
-    # optional (openai avoid crash)
     try:
         from frontend.templates.voice_assistant import show_voice_assistant
     except:
@@ -28,60 +25,35 @@ except Exception as e:
     st.error(f"❌ Import Error: {e}")
     st.stop()
 
-
 # ---------------- PAGE CONFIG ----------------
-st.set_page_config(
-    page_title="ClinSense AI",
-    layout="wide",
-    page_icon="🩺"
-)
+st.set_page_config(page_title="ClinSense AI", layout="wide")
+st.title("🩺 ClinSense AI")
 
-st.markdown("<h1 style='text-align:center;'>🩺 ClinSense AI</h1>", unsafe_allow_html=True)
-st.markdown("---")
-
-
-# ---------------- ADMIN SESSION ----------------
+# ---------------- ADMIN STATE ----------------
 if "is_admin" not in st.session_state:
     st.session_state["is_admin"] = False
 
-
+# ---------------- ADMIN LOGIN ----------------
 def admin_login():
-    st.sidebar.markdown("### 👨‍⚕ Admin Login")
+    st.sidebar.markdown("## 👨‍⚕ Admin Login")
 
-    user = st.sidebar.text_input("Username")
-    pwd = st.sidebar.text_input("Password", type="password")
+    user = st.sidebar.text_input("Admin Username", key="admin_user")
+    pwd = st.sidebar.text_input("Admin Password", type="password", key="admin_pass")
 
-    # ✅ FIXED (UNIQUE KEYS)
-    if st.sidebar.button("Login", key="admin_login_btn"):
+    if st.sidebar.button("Admin Login"):
+        user = user.strip().lower()
+        pwd = pwd.strip()
+
         if user == "admin" and pwd == "clin@123":
             st.session_state["is_admin"] = True
-            st.sidebar.success("Login Success")
+            st.sidebar.success("✅ Admin Login Success")
+            st.rerun()
         else:
-            st.sidebar.error("Invalid credentials")
+            st.sidebar.error("❌ Invalid Admin")
 
-    if st.sidebar.button("Logout", key="admin_logout_btn"):
+    if st.sidebar.button("Admin Logout"):
         st.session_state["is_admin"] = False
         st.sidebar.info("Logged out")
-
-
-# ---------------- CSS ----------------
-css_path = os.path.join(BASE_DIR, "mobile_app", "assets", "styles.css")
-if os.path.exists(css_path):
-    with open(css_path) as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-
-
-# ---------------- HEADER ----------------
-col1, col2, col3 = st.columns([1, 2, 1])
-with col2:
-    logo_path = os.path.join(BASE_DIR, "mobile_app", "logo.png")
-    if os.path.exists(logo_path):
-        st.image(logo_path, width=200)
-
-    st.markdown("<h1 style='text-align:center;'>ClinSense AI</h1>", unsafe_allow_html=True)
-
-st.markdown("---")
-
 
 # ---------------- SIDEBAR ----------------
 show_auth_sidebar()
@@ -101,7 +73,6 @@ page = st.sidebar.radio(
         "Voice Assistant"
     ]
 )
-
 
 # ---------------- ROUTING ----------------
 try:
