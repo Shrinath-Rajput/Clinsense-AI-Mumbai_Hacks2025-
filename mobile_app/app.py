@@ -3,20 +3,19 @@ import os
 
 # ---------------- SAFE IMPORTS ----------------
 try:
-    from mobile_app.frontend.templates.home import show_home
-    from mobile_app.frontend.templates.booking import show_booking
-    from mobile_app.frontend.templates.dashboard import show_dashboard
-    from mobile_app.frontend.templates.smart_doctor_match import show_smart_match
-    from mobile_app.frontend.templates.chatbot import show_chatbot
-    from mobile_app.frontend.templates.image_tools import show_image_tools
+    from frontend.templates.home import show_home
+    from frontend.templates.booking import show_booking
+    from frontend.templates.dashboard import show_dashboard
+    from frontend.templates.smart_doctor_match import show_smart_match
+    from frontend.templates.chatbot import show_chatbot
+    from frontend.templates.image_tools import show_image_tools
 
-    # voice assistant optional (openai issue avoid)
     try:
-        from mobile_app.frontend.templates.voice_assistant import show_voice_assistant
+        from frontend.templates.voice_assistant import show_voice_assistant
     except:
         show_voice_assistant = None
 
-    from mobile_app.frontend.templates.auth import show_auth_sidebar, is_logged_in
+    from frontend.templates.auth import show_auth_sidebar, is_logged_in
 
 except Exception as e:
     st.error(f"❌ Import Error: {e}")
@@ -24,12 +23,7 @@ except Exception as e:
 
 
 # ---------------- PAGE CONFIG ----------------
-st.set_page_config(
-    page_title="ClinSense AI",
-    layout="wide",
-    page_icon="🩺"
-)
-
+st.set_page_config(page_title="ClinSense AI", layout="wide", page_icon="🩺")
 st.write("✅ App Started Successfully 🚀")
 
 
@@ -40,7 +34,6 @@ if "is_admin" not in st.session_state:
 
 def doctor_admin_login_box():
     st.sidebar.markdown("### 👨‍⚕ Doctor / Admin Login")
-
     admin_user = st.sidebar.text_input("Admin Username")
     admin_pass = st.sidebar.text_input("Admin Password", type="password")
 
@@ -57,7 +50,7 @@ def doctor_admin_login_box():
 
 
 # ---------------- CSS ----------------
-css_path = os.path.join("mobile_app", "assets", "styles.css")
+css_path = os.path.join("assets", "styles.css")
 if os.path.exists(css_path):
     with open(css_path) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
@@ -65,12 +58,10 @@ if os.path.exists(css_path):
 
 # ---------------- HEADER ----------------
 col1, col2, col3 = st.columns([1, 2, 1])
-
 with col2:
-    logo_path = os.path.join("mobile_app", "logo.png")
+    logo_path = os.path.join("logo.png")
     if os.path.exists(logo_path):
         st.image(logo_path, width=200)
-
     st.markdown("<h1 style='text-align:center;'>ClinSense AI</h1>", unsafe_allow_html=True)
 
 st.markdown("---")
